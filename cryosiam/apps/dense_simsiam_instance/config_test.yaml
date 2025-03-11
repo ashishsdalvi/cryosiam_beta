@@ -1,0 +1,35 @@
+data_folder: '/scratch/stojanov/mycoplasma_data/vpp/240422/'
+instance_labels_folder: '/scratch/stojanov/mycoplasma_data/vpp/old/instance_labels/'
+semantic_predictions: '/scratch/stojanov/mycoplasma_data/vpp/old/semantic_predictions/'
+semantic_foreground_labels: [ 2 ]
+mask_folder: ''
+log_dir: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_instance'
+prediction_folder: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_instance/predictions'
+trained_model: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_instance/model/model-best.ckpt'
+file_extension: '.mrc'
+
+test_files: [ 'TS_56_6.80Apx.mrc', 'TS_61_6.80Apx.mrc' ]
+
+save_raw_predictions: False
+eval_skip_prediction: False
+
+parameters:
+  gpu_devices: 1
+  data:
+    patch_size: [ 64, 64, 64 ]
+    min: 0
+    max: 1
+    mean: 0
+    std: 1
+  network:
+    in_channels: 1
+    spatial_dims: 3
+    threshold_foreground: 0.4
+    boundary_bias: 0.5
+    min_center_distance: 0
+    max_center_distance: 5
+    distance_type: 1   # 0 for using only predicted distances, 1 for using predicted distances + cdist from foreground, 2 for using only cdist
+    postprocessing: False
+
+hyper_parameters:
+  batch_size: 40

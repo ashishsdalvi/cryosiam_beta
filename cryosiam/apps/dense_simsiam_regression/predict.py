@@ -17,7 +17,7 @@ from monai.transforms import (
 )
 
 from cryosiam.utils import parser_helper
-from cryosiam.data import MrcReader, TiffReader, PatchIter, MrcWriter, TiffWriter
+from cryosiam.data import MrcReader, PatchIter, MrcWriter
 from cryosiam.apps.dense_simsiam_regression import load_backbone_model, load_prediction_model
 
 
@@ -48,16 +48,10 @@ def main(config_file_path):
     for idx, file in enumerate(files):
         test_data.append({'image': os.path.join(test_folder, file),
                           'file_name': os.path.join(test_folder, file)})
-    reader = MrcReader(read_in_mem=True) if cfg['file_extension'] in ['.mrc', '.rec'] else \
-        TiffReader() if cfg['file_extension'] in ['.tiff', '.tif'] else ITKReader()
+    reader = MrcReader(read_in_mem=True)
 
-    if cfg['file_extension'] in ['.mrc', '.rec']:
-        writer = MrcWriter(output_dtype=np.float32, overwrite=True)
-        writer.set_metadata({'voxel_size': 1})
-    elif cfg['file_extension'] in ['.tiff', '.tif']:
-        writer = TiffWriter(output_dtype=np.float32)
-    else:
-        writer = ITKWriter()
+    writer = MrcWriter(output_dtype=np.float32, overwrite=True)
+    writer.set_metadata({'voxel_size': 1})
 
     transforms = Compose(
         [

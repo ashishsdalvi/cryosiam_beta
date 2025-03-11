@@ -1,5 +1,4 @@
 import mrcfile
-import tifffile
 import numpy as np
 from monai.data import ImageReader
 from monai.utils import ensure_tuple
@@ -7,81 +6,6 @@ from monai.config import DtypeLike, PathLike
 from monai.data.utils import is_supported_format
 from torch.utils.data._utils.collate import np_str_obj_array_pattern
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
-
-
-class TiffReader(ImageReader):
-    """
-    Load cryoET tomograms based on TIFFFILE library.
-    The loaded data array will be in C order, for example, a 3D image NumPy
-    array index order will be `CZYX`.
-    Args:
-        channel_dim: the channel dimension of the input image, default is None.
-            This is used to set original_channel_dim in the metadata, EnsureChannelFirstD reads this field.
-            If None, `original_channel_dim` will be either `no_channel` or `-1`.
-        dtype: dtype of the output data array when loading with mrcfile library.
-        kwargs: additional args for `mrcfile.open` API.
-    """
-
-    def __init__(
-            self,
-            channel_dim: Optional[int] = None,
-            dtype: DtypeLike = np.float32,
-            **kwargs,
-    ):
-        super().__init__()
-        self.channel_dim = channel_dim
-        self.dtype = dtype
-        self.kwargs = kwargs
-
-    def verify_suffix(self, filename: Union[Sequence[PathLike], PathLike]) -> bool:
-        """
-        Verify whether the specified file or files format is supported by MRC reader.
-        Args:
-            filename: file name or a list of file names to read.
-                if a list of files, verify all the suffixes.
-        """
-        suffixes: Sequence[str] = ["tif", "tif.gz", "tif.bz2", "tiff", "tiff.gz", "tiff.bz2"]
-        return is_supported_format(filename, suffixes)
-
-    def read(self, data: Union[Sequence[PathLike], PathLike], **kwargs) -> Union[Sequence[Any], Any]:
-        """
-        Read image data from specified file or files.
-        Note that it returns a data object or a sequence of data objects.
-        Args:
-            data: file name or a list of file names to read.
-            kwargs: additional args for actual `read` API of 3rd party libs.
-        """
-        img_: List[np.array] = []
-
-        filenames: Sequence[PathLike] = ensure_tuple(data)
-        kwargs_ = self.kwargs.copy()
-        kwargs_.update(kwargs)
-        for name in filenames:
-            data = tifffile.imread(name)
-            img_.append(data)
-        return img_
-
-    def get_data(self, img) -> Tuple[np.ndarray, Dict]:
-        """
-        Extract data array and metadata from loaded image and return them.
-        This function must return two objects, the first is a numpy array of image data,
-        the second is a dictionary of metadata.
-        Args:
-            img: an image object loaded from an image file or a list of image objects.
-        """
-        img_array: List[np.ndarray] = []
-        compatible_meta: Dict = {}
-
-        for i in ensure_tuple(img):
-            header = {}
-            img_array.append(i)
-            if self.channel_dim is None:  # default to "no_channel" or -1
-                header["original_channel_dim"] = "no_channel"
-            else:
-                header["original_channel_dim"] = self.channel_dim
-            _copy_compatible_dict(header, compatible_meta)
-
-        return _stack_images(img_array, compatible_meta), compatible_meta
 
 
 class MrcReader(ImageReader):
