@@ -1,0 +1,37 @@
+site_name: CryoSiam Documentation
+site_url: https://frosinastojanovska.github.io/cryosiam
+theme:
+  name: material
+  logo: images/CryoSiam_logo_transparent.svg  # Path to the logo
+  favicon: images/CryoSiam_logo_favicon.svg  # (Optional) Set as the browser tab icon
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+    - content.code.annotate
+    - search.highlight
+    - search.share
+    - toc.follow
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - FAQ: faq.md
+  - Denoising: denoising.md
+  - Semantic segmentation: semantic.md
+  - Instance segmentation: instance.md
+  - Particle identification: particle_identification.md
+
+plugins:
+  - search
+  - mike
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+  - pymdownx.highlight
+  - pymdownx.superfences

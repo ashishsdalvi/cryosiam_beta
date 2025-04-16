@@ -52,3 +52,6 @@ docs/_build/
 .idea/
 
 experiments/*
+
+# MkDocs generated site
+site/
