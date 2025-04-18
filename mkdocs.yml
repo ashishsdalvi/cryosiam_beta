@@ -4,8 +4,15 @@ theme:
   name: material
   logo: images/CryoSiam_logo_transparent.svg  # Path to the logo
   favicon: images/CryoSiam_logo_favicon.svg  # (Optional) Set as the browser tab icon
+  custom_dir: docs/overrides
+
   features:
+    - navigation.expand
+    - navigation.sections
     - navigation.tabs
+    - navigation.path
+    - content.tabs.link
+    - toc.integrate
     - navigation.top
     - content.code.copy
     - content.action.edit
@@ -17,16 +24,31 @@ theme:
 nav:
   - Home: index.md
   - Installation: installation.md
-  - Usage: usage.md
+  - Usage:
+    - Overview: usage.md
+    - Preprocessing: preprocessing.md
+    - Denoising:
+      - Prediction: denoising/prediction.md
+      - Training: denoising/training.md
+    - Semantic segmentation:
+      - Prediction: semantic/prediction.md
+      - Semi-supervised training: semantic/semi_supervised_training.md
+      - Training: semantic/training.md
+    - Instance segmentation:
+      - Prediction: instance/prediction.md
+      - Training: instance/training.md
+    - Particle identification:
+      - Embeddings: simsiam_embeds/embeddings.md
+      - Particle identification: simsiam_embeds/particle_identification.md
   - FAQ: faq.md
-  - Denoising: denoising.md
-  - Semantic segmentation: semantic.md
-  - Instance segmentation: instance.md
-  - Particle identification: particle_identification.md
 
 plugins:
   - search
   - mike
+
+extra:
+  version:
+    provider: mike
 
 markdown_extensions:
   - admonition

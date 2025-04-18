@@ -1,18 +1,18 @@
-# CryoSiam Semantic Prediction
+# CryoSiam Semantic Training
 
-This guide explains how to run **semantic segmentation prediction** using CryoSiam. You'll use a YAML config file to specify your model, data, and output options.
+This guide explains how to run **semantic segmentation training** using CryoSiam. You'll use a YAML config file to specify the configurations of the model, data, pretrained weights, and training options.
 
 ---
 
 ## How to Run
 
-Use the CryoSiam CLI with the `semantic_predict` subcommand:
+Use the CryoSiam CLI with the `semantic_train` subcommand:
 
 ```bash
-cryosiam semantic_predict --config_file=configs/semantic_predict.yaml
+cryosiam semantic_train --config_file=configs/semantic_train.yaml
 ```
 
-This command loads the configuration, prepares the model and data, and saves the predicted segmentation.
+This command loads the configuration, prepares the model and data, and performs the training.
 
 ---
 
@@ -95,80 +95,23 @@ This configuration tells CryoSiam:
 
 ---
 
-## Model Selection
-
-CryoSiam provides pretrained models for semantic segmentation. You can download and use them by specifying the correct model file in your configuration.
-
-### Available Pretrained Models
-
-#### 1. **General Semantic Segmentation Model**
-
-- **Purpose:** Identifies broad structural classes in cryo-ET tomograms.
-- **Classes:** 
-  - Membrane
-  - Particles
-  - Microtubules
-  - Actin
-  - Filaments (DNA/RNA)
-- **Use Case:** Suitable for exploratory annotation and segmentation of standard biological samples.
-
-#### 2. **Target Complex Segmentation Model**
-
-- **Purpose:** Focused segmentation model for identifying specific protein complexes as described in the CryoSiam publication.
-- **Use Case:** Use this model when your goal is to identify specific known structures, such as ribosomes or specific viral components.
-
----
-
-## Output Files
-
-After running, you'll find the following files in your `prediction_folder`:
-
-| File                  | Description                             |
-|-----------------------|-----------------------------------------|
-| `sample_01.seg.mrc`   | Binary segmentation mask                |
-| `sample_01.prob.mrc`  | Raw probability map (if enabled)        |
-| `config_used.yaml`    | Copy of config used for reproducibility |
-
----
-
-## Example Command
-
-```bash
-cryosiam semantic_predict \
-  --config_file=configs/semantic_predict.yaml
-```
-
----
-
-## ✅ Tips for Best Results
-
-- Match `voxel_size` to the data your model was trained on.
-- Set `patch_size` based on the model’s receptive field.
-- Use `--verbose` (`-v`, `-vv`) for logging info or debugging.
-- Use `"cpu"` if GPU resources are unavailable or limited.
-
----
-
-## 🧯 Troubleshooting
+## Troubleshooting
 
 | Problem                      | Suggested Fix |
 |------------------------------|---------------|
-| `FileNotFoundError`          | Check paths to model or input directory |
 | `CUDA out of memory`         | Lower `batch_size` or use `device: cpu` |
-| `Unsupported file type`      | Use `file_type: mrc` or `file_type: tiff` |
-| `Blank or noisy segmentations` | Try adjusting `threshold` (e.g., `0.3` or `0.6`) |
 
 ---
 
 ## Related Commands
 
-- [CryoSiam Denoising](denoising.md)
-- [CryoSiam Instance Prediction](instance.md)
-- [Installation Guide](installation.md)
+- [CryoSiam Denoising Training](../denoising/training.md)
+- [CryoSiam Instance Prediction](../instance/training.md)
+- [Installation Guide](../installation.md)
 
 ---
 
 ## Need Help?
 
-- Check the [FAQ](faq.md)  
+- Check the [FAQ](../faq.md)  
 - Or [open an issue on GitHub](https://github.com/frosinastojanovska/cryosiam/issues)

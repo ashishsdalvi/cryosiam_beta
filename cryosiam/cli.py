@@ -40,7 +40,7 @@ def main():
     sp_semantic = subparsers.add_parser("instance_predict", help="Run instance segmentation prediction")
     sp_semantic.add_argument('--config_file', type=str, required=True)
     sp_semantic.add_argument('--filename', type=str, required=False, default=None)
-    sp_semantic.set_defaults(func=lambda args: semantic_predict_main(args.config_file, args.filename))
+    sp_semantic.set_defaults(func=lambda args: instance_predict_main(args.config_file, args.filename))
 
     args = parser.parse_args()
 
