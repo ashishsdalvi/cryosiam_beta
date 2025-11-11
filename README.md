@@ -5,6 +5,10 @@
 
 Self-supervised deep learning framework that works on dense and subtomogram levels. The dense part of the framework is additionally trained on subtasks for tomogram denoising, tomogram semantic and instance segmentation. 
 
-Demo beta version of CryoSiam - to try out the denoising of tomograms with pre-trained models follow the steps in the provided [Colab notebook](https://github.com/frosinastojanovska/cryosiam_beta/blob/main/tomogram_denoising.ipynb).
+For installation and usage instructions, please visit the [documentation page](https://frosinastojanovska.github.io/cryosiam-docs/).
 
-Other downstream tasks (semantic and instance segmentation) will come very soon!!!
+### 🔗 Try CryoSiam simple example online:
+
+- [![Open in Colab](https://img.shields.io/badge/Open%20in-Colab-orange?logo=googlecolab)](https://colab.research.google.com/github/frosinastojanovska/cryosiam/blob/main/notebooks/tomogram_denoising.ipynb)
+- [![Launch Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/frosinastojanovska/cryosiam/HEAD?labpath=notebooks/tomogram_denoising.ipynb)
+

@@ -1,7 +1,7 @@
 data_folder: '/scratch/stojanov/mycoplasma_data/vpp/240422/'
-log_dir: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_semantic'
-prediction_folder: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_semantic/predictions'
-trained_model: '/scratch/stojanov/development/cryoet-torch/experiments/dense_simsiam_semantic/model/model-best.ckpt'
+log_dir: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_semantic'
+prediction_folder: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_semantic/predictions'
+trained_model: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_semantic/model/model-best.ckpt'
 file_extension: '.mrc'
 
 test_files: [ 'TS_56_6.80Apx.mrc', 'TS_61_6.80Apx.mrc' ]
