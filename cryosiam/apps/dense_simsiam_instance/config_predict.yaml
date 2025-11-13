@@ -1,17 +1,27 @@
-data_folder: '/scratch/stojanov/mycoplasma_data/vpp/240422/'
-instance_labels_folder: '/scratch/stojanov/mycoplasma_data/vpp/old/instance_labels/'
-semantic_predictions: '/scratch/stojanov/mycoplasma_data/vpp/old/semantic_predictions/'
+data_folder: '/pub/asdalvi/cryoet/resources/cryosiam/denoised/3x_bin_cytoplasm_chunks'
+instance_labels_folder: ''
+semantic_predictions: ''
 semantic_foreground_labels: [ 2 ]
-mask_folder: ''
-log_dir: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance'
-prediction_folder: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance/predictions'
-filtering_mask_folder: '/g/zaugg/stojanov/simulated_datasets/final_models/dense_simsiam_instance/predictions/semantic'
-trained_model: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance/model/model-best.ckpt'
+mask_folder: '' 
+log_dir: '/pub/asdalvi/cryoet/results/cryosiam/instance/cytoplasm_chunks/log/'
+prediction_folder: '/pub/asdalvi/cryoet/results/cryosiam/instance/cytoplasm_chunks/predictions/'
+filtering_mask_folder: ''
+trained_model: '/data/homezvol3/asdalvi/apps/cryoet/cryosiam/model_weights/cryosiam_instance.ckpt'
 file_extension: '.mrc'
 
-test_files: [ 'TS_56_6.80Apx.mrc', 'TS_61_6.80Apx.mrc' ]
 
-save_raw_predictions: False
+# test_files: [
+#   "FL_G2_53kx_ts_09_1000_600_chunk.mrc", "FL_G2_53kx_ts_09_1200_600_chunk.mrc",
+#   "FL_G2_53kx_ts_09_800_200_chunk.mrc", "FL_G2_53kx_ts_12_100_1200_chunk.mrc", "FL_G2_53kx_ts_12_240_1200_chunk.mrc",
+#   "FL_G2_53kx_ts_12_400_1200_chunk.mrc", "FL_G2_53kx_ts_13_1200_600_chunk.mrc", "FL_G2_53kx_ts_13_1200_900_chunk.mrc",
+#   "FL_G2_53kx_ts_13_800_1200_chunk.mrc", "FL_G2_53kx_ts_17_1000_1200_chunk.mrc", "FL_G2_53kx_ts_17_1000_400_chunk.mrc",
+#   "FL_G2_53kx_ts_17_800_1200_chunk.mrc", "NNW_G2_53kx_ts_03_200_300_chunk.mrc", "NNW_G2_53kx_ts_03_200_600_chunk.mrc",
+#   "NNW_G2_53kx_ts_03_400_800_chunk.mrc", "NNW_G2_53kx_ts_03_600_1200_chunk.mrc", "NNW_G2_53kx_ts_08_200_1200_chunk.mrc",
+#   "NNW_G2_53kx_ts_08_200_300_chunk.mrc", "NNW_G2_53kx_ts_08_200_600_chunk.mrc", "NNW_G3_53kx_ts_03_200_1200_chunk.mrc"
+# ]
+test_files: null 
+
+save_raw_predictions: True
 eval_skip_prediction: False
 
 parameters:
@@ -33,4 +43,43 @@ parameters:
     postprocessing: False
 
 hyper_parameters:
-  batch_size: 40
+  batch_size: 4
+
+
+
+# data_folder: '/pub/asdalvi/cryoet/results/cryosiam/denoised/3x_bin_denoised/'
+# instance_labels_folder: '/scratch/stojanov/mycoplasma_data/vpp/old/instance_labels/'
+# semantic_predictions: '/scratch/stojanov/mycoplasma_data/vpp/old/semantic_predictions/'
+# semantic_foreground_labels: [ 2 ]
+# mask_folder: ''
+# log_dir: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance'
+# prediction_folder: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance/predictions'
+# filtering_mask_folder: '/g/zaugg/stojanov/simulated_datasets/final_models/dense_simsiam_instance/predictions/semantic'
+# trained_model: '/scratch/stojanov/development/cryosiam/experiments/dense_simsiam_instance/model/model-best.ckpt'
+# file_extension: '.mrc'
+
+# test_files: [ 'TS_56_6.80Apx.mrc', 'TS_61_6.80Apx.mrc' ]
+
+# save_raw_predictions: False
+# eval_skip_prediction: False
+
+# parameters:
+#   gpu_devices: 1
+#   data:
+#     patch_size: [ 64, 64, 64 ]
+#     min: 0
+#     max: 1
+#     mean: 0
+#     std: 1
+#   network:
+#     in_channels: 1
+#     spatial_dims: 3
+#     threshold_foreground: 0.4
+#     boundary_bias: 0.5
+#     min_center_distance: 0
+#     max_center_distance: 5
+#     distance_type: 1   # 0 for using only predicted distances, 1 for using predicted distances + cdist from foreground, 2 for using only cdist
+#     postprocessing: False
+
+# hyper_parameters:
+#   batch_size: 40

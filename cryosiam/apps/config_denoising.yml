@@ -1,0 +1,43 @@
+data_folder: '/pub/asdalvi/cryoet/reconstructed/tomograms/TEST'
+log_dir: '/pub/asdalvi/cryoet/reconstructed/tomograms/TEST/log/'
+prediction_folder: '/pub/asdalvi/cryoet/reconstructed/tomograms/TEST/denoised/'
+
+trained_model: '/data/homezvol3/asdalvi/apps/cryoet/cryosiam/model_weights/cryosiam_denoising.ckpt'
+file_extension: '.mrc'
+
+# test_files: [ "NNW_G4_42kx_ts_01_Align_Vol.mrc" ]
+# test_files: [
+#   "FL_G2_53kx_ts_03_Align_Vol.mrc",
+#   "FL_G2_53kx_ts_13_Align_Vol.mrc",
+#   "NNW_G2_53kx_ts_08_Align_Vol.mrc",
+#   "NNW_G3_53kx_ts_25_Align_Vol.mrc",
+#   "FL_G2_53kx_ts_09_Align_Vol.mrc",
+#   "FL_G2_53kx_ts_17_Align_Vol.mrc",
+#   "NNW_G3_53kx_ts_03_Align_Vol.mrc",
+#   "NNW_G3_53kx_ts_30_Align_Vol.mrc",
+#   "FL_G2_53kx_ts_12_Align_Vol.mrc",
+#   "NNW_G2_53kx_ts_03_Align_Vol.mrc",
+#   "NNW_G3_53kx_ts_23_Align_Vol.mrc",
+#   "NNW_G4_42kx_ts_15_Align_Vol.mrc"
+# ]
+
+# denoise on all files
+test_files: null 
+
+save_raw_predictions: False
+scale_prediction: True
+
+parameters:
+  gpu_devices: [0, 1] # either int or list[int]
+  data:
+    patch_size: [ 128, 128, 128 ]
+    min: 0
+    max: 1
+    mean: 0
+    std: 1
+  network:
+    in_channels: 1
+    spatial_dims: 3
+
+hyper_parameters:
+  batch_size: 1

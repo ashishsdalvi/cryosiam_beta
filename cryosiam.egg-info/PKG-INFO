@@ -1,0 +1,47 @@
+Metadata-Version: 2.4
+Name: cryosiam
+Version: 1.0
+Summary: CryoSiam: Deep Learning-based Cryo-ET Analysis
+Home-page: https://github.com/frosinastojanovska/cryosiam
+Author: Frosina Stojanovska
+Author-email: Frosina Stojanovska <stojanovska.frose@gmail.com>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: edt==2.4.1
+Requires-Dist: elf==0.5.2
+Requires-Dist: h5py==3.11.0
+Requires-Dist: itk==5.3.0
+Requires-Dist: lightning==2.1.3
+Requires-Dist: monai==1.3.2
+Requires-Dist: mrcfile==1.5.3
+Requires-Dist: numpy==1.24.4
+Requires-Dist: pandas==2.0.3
+Requires-Dist: scipy==1.9.1
+Requires-Dist: plotly==5.24.1
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: scikit_learn==1.3.2
+Requires-Dist: scikit-image==0.20.0
+Requires-Dist: torch==2.1.2
+Requires-Dist: torchvision==0.16.2
+Requires-Dist: umap-learn==0.5.7
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# CryoSiam 
+
+
+<img src="imgs/CryoSiam_logo.png" width=200 height=200>
+
+Self-supervised deep learning framework that works on dense and subtomogram levels. The dense part of the framework is additionally trained on subtasks for tomogram denoising, tomogram semantic and instance segmentation. 
+
+For installation and usage instructions, please visit the [documentation page](https://frosinastojanovska.github.io/cryosiam-docs/).
+
+### 🔗 Try CryoSiam simple example online:
+
+- [![Open in Colab](https://img.shields.io/badge/Open%20in-Colab-orange?logo=googlecolab)](https://colab.research.google.com/github/frosinastojanovska/cryosiam/blob/main/notebooks/tomogram_denoising.ipynb)
+- [![Launch Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/frosinastojanovska/cryosiam/HEAD?labpath=notebooks/tomogram_denoising.ipynb)
+

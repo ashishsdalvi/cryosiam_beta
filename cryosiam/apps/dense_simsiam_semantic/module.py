@@ -116,6 +116,7 @@ class SemanticSegmentationModule(pl.LightningModule):
         z, _ = self._model_backbone.forward_predict(x)
         return self._model(z)
 
+    
     def prepare_data(self):
         data_root = os.path.normpath(self.config['data_folder'])
         train_val_path = os.path.join(self.config['log_dir'], 'train_val_split.pkl')
@@ -133,6 +134,8 @@ class SemanticSegmentationModule(pl.LightningModule):
                                                                          file_ext=self.config['file_extension'])
             with open(train_val_path, 'wb') as f:
                 pickle.dump({'train_files': train_files, 'val_files': val_files}, f)
+       
+    
 
     def initialization(self):
         train_val_path = os.path.join(self.config['log_dir'], 'train_val_split.pkl')

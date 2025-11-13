@@ -6,7 +6,7 @@ file_extension: '.mrc'
 
 test_files: [ 'TS_56_6.80Apx.mrc', 'TS_61_6.80Apx.mrc' ]
 
-eval_skip_prediction: False
+eval_skip_prediction: True
 
 scale_prediction: True
 
