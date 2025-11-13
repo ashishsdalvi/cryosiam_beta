@@ -21,6 +21,10 @@ from cryosiam.data import MrcReader, PatchIter, MrcWriter
 from cryosiam.transforms import ScaleIntensityd, InvertIntensityd
 from cryosiam.apps.dense_simsiam_regression import load_backbone_model, load_prediction_model
 
+# my imports 
+import mrcfile
+import sys
+
 
 def main(config_file_path, filename):
     with open(config_file_path, "r") as ymlfile:
@@ -49,10 +53,52 @@ def main(config_file_path, filename):
         if files is None:
             files = [x for x in os.listdir(test_folder) if os.path.isfile(os.path.join(test_folder, x)) and
                      x.endswith(cfg['file_extension'])]
+    
+    #### OLD VERSION OF CREATING test_data
+#     test_data = []
+#     for idx, file in enumerate(files):
+#         test_data.append({'image': os.path.join(test_folder, file),
+#                           'file_name': os.path.join(test_folder, file)})
+    
+    # --- START OF MODIFICATION ---
+    # Build the test_data list, but first check if the output file already exists
     test_data = []
+    print("Checking for files to process...")
     for idx, file in enumerate(files):
-        test_data.append({'image': os.path.join(test_folder, file),
-                          'file_name': os.path.join(test_folder, file)})
+        # Construct the expected output file path
+        expected_out_file = os.path.join(prediction_folder, file)
+        
+        # Only add the file if the output *doesn't* exist
+        if not os.path.exists(expected_out_file):
+            # 2. If output doesn't exist, check if the *input* file is corrupt
+            input_file_path = os.path.join(test_folder, file)
+            try:
+                ######## NOTE ####### 
+                # ONLY USE WHEN YOU GET THAT A FILE IS CORRUPTED (BYTE SIZE DOESN"T MATCH UP) 
+                # OTHERWISE IT WILL TAKE A LONG TIME TO READ EACH FILE
+                # with mrcfile.open(input_file_path) as mrc:
+                #     _ = mrc.header  # Accessing header is a fast check # 
+                
+                # If it's valid, add it to the list
+                test_data.append({'image': input_file_path,
+                                  'file_name': input_file_path})
+            except Exception as e:
+                # If it's corrupt, print a warning and skip it
+                print(f"--- WARNING: Corrupted input file detected! Skipping: {input_file_path}", file=sys.stderr)
+                print(f"--- Error details: {e}", file=sys.stderr)
+
+        else:
+            print(f"Output file found, skipping: {expected_out_file}")
+    
+    if not test_data:
+        print("No new files to process. Exiting.")
+        return  # Exit the function if there's nothing to do
+    
+    print(f"Found {len(test_data)} files to denoise.")
+    # --- END OF MODIFICATION ---
+    
+    
+    
     reader = MrcReader(read_in_mem=True)
 
     if cfg['file_extension'] in ['.mrc', '.rec']:
@@ -87,7 +133,8 @@ def main(config_file_path, filename):
     print('Prediction')
     with torch.no_grad():
         for i, test_sample in enumerate(test_loader):
-            out_file = os.path.join(prediction_folder, os.path.basename(test_sample['file_name'][0]))
+            out_file = os.path.join(prediction_folder, os.path.basename(test_sample['file_name'][0]))    
+            print('Predicting', test_sample['file_name'][0]) 
             original_size = test_sample['image'][0][0].shape
             img = pad_transform(test_sample['image'][0])
             patch_dataset = GridPatchDataset(data=[img], patch_iter=patch_iter)
